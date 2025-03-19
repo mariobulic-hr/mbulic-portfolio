@@ -1,14 +1,31 @@
 import { getPayload } from 'payload'
-import React from 'react'
-
+import { Suspense } from 'react'
 import config from '@/payload.config'
 import { Projects } from './components/Projects'
 import TechTags from './components/TechTags'
-import Image from 'next/image'
-import Link from 'next/link'
+import HeroSection from './components/HeroSection'
+import Loading from './loading'
+
 import './styles.css'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
+  return (
+    <div className="main">
+      <Suspense fallback={<Loading />}>
+        <HeroSectionWithData />
+      </Suspense>
+
+      <Projects isHomePage={true} />
+    </div>
+  )
+}
+
+async function HeroSectionWithData() {
+  'use server'
+  await new Promise((res) => setTimeout(res, 3000)) // Simulate delay
+
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
@@ -19,39 +36,9 @@ export default async function HomePage() {
     .catch(() => null)
 
   return (
-    <div className="main">
-      <div className="heroSection">
-        <div className="heroSectionContent">
-          <div className="heroSectionImage">
-            <Image
-              src={`/images/mariobulic.webp`}
-              alt="Mario Bulic"
-              width={0}
-              height={0}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '10px',
-              }}
-            />
-          </div>
-          <div className="heroSectionDescription">
-            <h1>{homepageData?.title}</h1>
-            <p>{homepageData?.description}</p>
-            <div className="heroSectionLinks">
-              <Link href="/contact" className="heroSectionLink">
-                Get a Quote
-              </Link>
-              <Link href="/about" className="heroSectionLink heroSectionLinkSecondary">
-                My Story
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+    <>
+      <HeroSection homepageData={homepageData} />
       <TechTags techTags={homepageData?.techStack} />
-      <Projects isHomePage={true} />
-    </div>
+    </>
   )
 }

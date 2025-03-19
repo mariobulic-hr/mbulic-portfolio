@@ -1,13 +1,15 @@
 .techTag {
-    margin-top: 2rem;
-    background-color: var(--secondary-color);
-    padding: 1rem 3rem;
+    background-color: var(--dark-accent);
+    height: var(--tech-tag-height);
+    display: flex;
+    align-items: center;
     width: 100%;
 }
 
 .techTagList {
+    width: 100%;
     list-style: none;
-    padding: 0;
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -15,6 +17,6 @@
 
 .techTagListItem {
     color: rgba(255, 255, 255, 0.35);
-    font-weight: 700;
-    padding: 0.5rem 1rem;
+    font-weight: 300;
+    font-family: var(--font-mona-sans), sans-serif;
 }

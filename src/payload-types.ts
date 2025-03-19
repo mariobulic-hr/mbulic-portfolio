@@ -69,6 +69,7 @@ export interface Config {
     users: User;
     media: Media;
     projects: Project;
+    stories: Story;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -78,6 +79,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    stories: StoriesSelect<false> | StoriesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -163,6 +165,8 @@ export interface Project {
   title: string;
   subtitle: string;
   role: string;
+  timeStart: string;
+  timeEnd: string;
   slug: string;
   description: {
     root: {
@@ -190,6 +194,34 @@ export interface Project {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stories".
+ */
+export interface Story {
+  id: number;
+  title: string;
+  subtitle: string;
+  slug: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  publishedDate: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -206,6 +238,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'stories';
+        value: number | Story;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -290,6 +326,8 @@ export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
   subtitle?: T;
   role?: T;
+  timeStart?: T;
+  timeEnd?: T;
   slug?: T;
   description?: T;
   projectTechnologies?:
@@ -300,6 +338,19 @@ export interface ProjectsSelect<T extends boolean = true> {
       };
   projectURL?: T;
   githubURL?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stories_select".
+ */
+export interface StoriesSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  slug?: T;
+  content?: T;
+  publishedDate?: T;
   updatedAt?: T;
   createdAt?: T;
 }

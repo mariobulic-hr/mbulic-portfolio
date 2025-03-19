@@ -1,0 +1,86 @@
+.heroSection {
+    padding: 4rem 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: calc(100vh - var(--nav-height) - var(--tech-tag-height));
+  }
+  
+  .heroSectionContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+  
+  .heroSectionImage {
+    flex: 35%;
+    margin-right: 2rem;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+  
+    @media (max-width: 768px) {
+      margin-right: 0;
+    }
+  }
+  
+  .heroSectionDescription {
+    flex: 65%;
+    text-align: left;
+  
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+  }
+  
+  .heroSectionDescription h1 {
+    margin-top: 0;
+  }
+  
+  .heroSectionLinks {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  
+  .heroSectionLink {
+    background-color: var(--primary-accent);
+    color: #fff;
+    padding: 0.5rem 1rem;
+  }
+  
+  .heroSectionLinkSecondary {
+    border: 1px solid var(--primary-accent);
+    background-color: transparent;
+    color: var(--primary-accent);
+    padding: 0.5rem 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+  
+  .heroSectionLinkSecondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--primary-accent);
+    transition: width 0.3s ease;
+    z-index: -1;
+  }
+  
+  .heroSectionLinkSecondary:hover {
+    color: var(--light-background);
+  }
+  
+  .heroSectionLinkSecondary:hover::before {
+    width: 100%;
+  }

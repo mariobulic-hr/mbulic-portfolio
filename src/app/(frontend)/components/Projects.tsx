@@ -1,17 +1,15 @@
-import React from 'react'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 import styles from './Projects.module.css'
-import TechTags from './TechTags'
+import strings from '@/app/lib/strings'
+import Card from './Card'
 
-interface Project {
+export interface Project {
   id: string
   title: string
   subtitle: string
-  role?: string
-  projectTechnologies?: { technology: string }[]
-  projectURL?: string
-  githubURL?: string
+  role: string
+  slug: string
 }
 
 export async function Projects({ isHomePage }: { isHomePage: boolean }) {
@@ -30,30 +28,17 @@ export async function Projects({ isHomePage }: { isHomePage: boolean }) {
   }
 
   return (
-    <section className={styles.projectsSection} style={{ marginTop: isHomePage ? '4rem' : '0' }}>
-      {isHomePage ? <h2>My Projects</h2> : <h1>Projects</h1>}
+    <section
+      className={`${styles.projectsSection} container`}
+      style={{ marginTop: isHomePage ? '4rem' : '0' }}
+    >
+      {isHomePage ? (
+        <h2>{strings.projects.homepageTitle}</h2>
+      ) : (
+        <h1>{strings.projects.pageTitle}</h1>
+      )}
       <div className={styles.projectsGrid}>
-        {projects.map((project) => {
-          return (
-            <div key={project.id} className={styles.projectCard}>
-              <div className={styles.projectContent}>
-                <h3>{project.title}</h3>
-                <p className={styles.projectSubtitle}>{project.subtitle}</p>
-                {project.role && <p className={styles.projectRole}>{project.role}</p>}
-
-                {!isHomePage && <TechTags techTags={project.projectTechnologies} />}
-
-                <div className={styles.projectLinks}>
-                  {project.slug && (
-                    <a href={`/projects/${project.slug}`} className={styles.projectLink}>
-                      Read More
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          )
-        })}
+        <Card projects={projects as Project[]} />
       </div>
     </section>
   )

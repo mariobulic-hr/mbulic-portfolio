@@ -26,6 +26,16 @@ export const Projects: CollectionConfig = {
       required: true,
     },
     {
+      name: 'timeStart',
+      type: 'date',
+      required: true,
+    },
+    {
+      name: 'timeEnd',
+      type: 'date',
+      required: true,
+    },
+    {
       name: 'slug',
       type: 'text',
       required: true,

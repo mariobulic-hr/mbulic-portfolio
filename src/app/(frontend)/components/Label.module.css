@@ -1,0 +1,17 @@
+.labelWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-accent);
+    font-family: var(--font-montserrat);
+}
+
+.text {
+    font-size: 0.9rem;
+    font-weight: 300;
+    font-family: var(--font-mona-sans);
+}
