@@ -1,4 +1,4 @@
-import QuoteForm from '../components/form/QuoteForm'
+import QuoteForm from '@/app/(frontend)/components/form/QuoteForm'
 
 const ContactPage = () => {
   return (
