@@ -1,0 +1,110 @@
+.formPrompt {
+    padding: 2rem;
+    background-color: var(--dark-accent);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.form {
+    padding: 2rem;
+    background-color: var(--dark-accent);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--primary-accent);
+    text-transform: uppercase;
+
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    font-family: var(--primary-font);
+    font-weight: 600;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+}
+
+.formGroup option {
+    font-family: var(--primary-font);
+    font-weight: 400;
+}
+
+.reviewDetails h2 {
+    margin-top: 0;
+}
+
+.reviewDetailsGroup {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: .5rem;
+}
+
+.reviewDetailsLabel {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-accent);
+    text-transform: uppercase;
+}
+
+.errorInput {
+    border-color: #ff4444 !important;
+}
+
+.errorMessage {
+    display: block;
+    color: #ff4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.submitButton {
+    margin: 4rem auto 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+}
+
+.nameFields {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.nameFields .formGroup {
+    flex: 1;
+}
+
+.buttonContainer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

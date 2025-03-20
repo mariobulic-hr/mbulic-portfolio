@@ -9,7 +9,7 @@ const Navigation = () => {
     <nav className={`${styles.navigation} container`}>
       <div className={styles.navigationTitle}>
         <Link href="/">
-          <Image src={`/images/mbulic.svg`} alt="Mario Bulic" width={80} height={80} priority />
+          <Image src={`/images/mbulic.svg`} alt="Mario Bulic" width={70} height={70} priority />
         </Link>
       </div>
       <ul className={styles.navigationList}>
@@ -19,9 +19,9 @@ const Navigation = () => {
         <li className={styles.navigationItem}>
           <Link href="/projects">Projects</Link>
         </li>
-        <li className={styles.navigationItem}>
+        {/*        <li className={styles.navigationItem}>
           <Link href="/stories">Stories</Link>
-        </li>
+        </li> */}
         <li className={styles.navigationItem}>
           <Link href="/contact">Contact</Link>
         </li>

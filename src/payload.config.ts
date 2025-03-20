@@ -23,6 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
   collections: [Users, Media, Projects, Stories],
   globals: [HomepageGlobal],
   editor: lexicalEditor(),

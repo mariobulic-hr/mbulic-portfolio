@@ -1,6 +1,8 @@
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 import { notFound } from 'next/navigation'
+import RichTextRenderer from '../../components/RichTextRenderer'
+import styles from './page.module.css'
 
 const StoriesDetailPage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params
@@ -17,37 +19,24 @@ const StoriesDetailPage = async ({ params }: { params: { slug: string } }) => {
     notFound()
   }
 
-  const renderContent = (children: any[]) => {
-    return children.map((child, index) => {
-      if (child.type === 'paragraph') {
-        return (
-          <p key={index}>
-            {child.children.map((textChild: any, textIndex: number) => (
-              <span key={textIndex}>{textChild.text}</span>
-            ))}
-          </p>
-        )
-      }
-      if (child.type === 'heading') {
-        const HeadingTag = `h${child.tag}` as keyof React.JSX.IntrinsicElements
-        return (
-          <HeadingTag key={index}>
-            {child.children.map((textChild: any, textIndex: number) => (
-              <span key={textIndex}>{textChild.text}</span>
-            ))}
-          </HeadingTag>
-        )
-      }
-      return null
-    })
-  }
-
   return (
-    <div>
-      <h1>{story.title}</h1>
-      <p>{story.subtitle}</p>
-      <p>{new Date(story.publishedDate).toLocaleDateString()}</p>
-      <div className="storyContent">{renderContent(story.content.root.children)}</div>
+    <div className="page-container container">
+      <div className={styles.storyHeader}>
+        <h1>{story.title}</h1>
+        <div className={styles.storyHeaderMeta}>
+          <span>{story.subtitle}</span>
+          <div>
+            {new Date(story.publishedDate).toLocaleDateString('en-GB', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </div>
+        </div>
+      </div>
+      <div className={styles.storyContent}>
+        <RichTextRenderer content={story.content} />
+      </div>
     </div>
   )
 }

@@ -4,10 +4,11 @@
     text-align: center;
 }
 
-.projectsSection h2 {
-    font-size: 2rem;
-    margin-bottom: 4rem;
-    text-align: center;
+.projectsSection h2,
+.projectsSection h1 {
+  font-size: 2rem;
+  margin-bottom: 4rem;
+  text-align: center;
 }
 
 .projectsGrid {
@@ -17,4 +18,10 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
     text-decoration: none;
+}
+
+.projectImage {
+    border-radius: 50%;
+    margin: 0 auto;
+    text-align: center;
 }

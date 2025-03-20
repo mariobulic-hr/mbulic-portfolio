@@ -1,0 +1,29 @@
+.scrollArrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem auto 0;
+    color: var(--light-background);
+    cursor: pointer;
+    animation: pulse 2s infinite;
+}
+
+.scrollArrow:hover {
+    animation: none;
+    color: var(--primary-accent);
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0.6;
+        transform: translateY(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

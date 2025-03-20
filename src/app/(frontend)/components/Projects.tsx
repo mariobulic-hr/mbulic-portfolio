@@ -10,6 +10,16 @@ export interface Project {
   subtitle: string
   role: string
   slug: string
+  timeStart: string
+  timeEnd: string
+}
+
+const sortProjects = (projects: Project[]) => {
+  return [...projects].sort((a, b) => {
+    const dateA = new Date(a.timeStart)
+    const dateB = new Date(b.timeStart)
+    return dateB.getTime() - dateA.getTime()
+  })
 }
 
 export async function Projects({ isHomePage }: { isHomePage: boolean }) {
@@ -28,7 +38,7 @@ export async function Projects({ isHomePage }: { isHomePage: boolean }) {
   }
 
   return (
-    <section
+    <div
       className={`${styles.projectsSection} container`}
       style={{ marginTop: isHomePage ? '4rem' : '0' }}
     >
@@ -38,8 +48,8 @@ export async function Projects({ isHomePage }: { isHomePage: boolean }) {
         <h1>{strings.projects.pageTitle}</h1>
       )}
       <div className={styles.projectsGrid}>
-        <Card projects={projects as Project[]} />
+        <Card projects={sortProjects(projects as Project[])} />
       </div>
-    </section>
+    </div>
   )
 }

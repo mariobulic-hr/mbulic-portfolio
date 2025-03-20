@@ -162,6 +162,7 @@ export interface Media {
  */
 export interface Project {
   id: number;
+  image?: (number | null) | Media;
   title: string;
   subtitle: string;
   role: string;
@@ -323,6 +324,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "projects_select".
  */
 export interface ProjectsSelect<T extends boolean = true> {
+  image?: T;
   title?: T;
   subtitle?: T;
   role?: T;

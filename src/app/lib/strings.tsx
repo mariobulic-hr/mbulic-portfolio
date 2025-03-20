@@ -7,6 +7,7 @@ const strings = {
     quote: 'Get in touch',
     about: 'About me',
     hi: 'Hello',
+    scroll: 'Check my work',
   },
 }
 

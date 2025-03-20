@@ -1,3 +1,39 @@
+@font-face {
+  font-family: 'Typonine Sans';
+  src: url('/fonts/TyponineSans-Regular.woff2') format('woff2'),
+    url('/fonts/TyponineSans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Typonine Sans';
+  src: url('/fonts/TyponineSans-Bold.woff2') format('woff2'),
+    url('/fonts/TyponineSans-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Typonine Sans';
+  src: url('/fonts/TyponineSans-Italic.woff2') format('woff2'),
+    url('/fonts/TyponineSans-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Typonine Sans';
+  src: url('/fonts/TyponineSans-BoldItalic.woff2') format('woff2'),
+    url('/fonts/TyponineSans-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   --primary-accent: #ff715b;
   --secondary-accent: #922D50;
@@ -6,15 +42,16 @@
 
   --dark-background: #121f28;
   --light-background: #FFEEDB;
+  --light-accent: #83878d;
 
-  --font-montserrat: 'Montserrat', sans-serif;
-  --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --primary-font: 'Typonine Sans', sans-serif;
   --font-mona-sans: 'Mona Sans', sans-serif;
-
-  --border-radius: 0;
+  --border-radius: .5rem;
   --nav-height: 100px;
   --tech-tag-height: 120px;
 }
+
+
 
 * {
   box-sizing: border-box;
@@ -23,7 +60,6 @@
 html {
   font-size: 18px;
   line-height: 32px;
-
   -webkit-font-smoothing: antialiased;
 }
 
@@ -34,7 +70,7 @@ body,
 }
 
 body {
-  font-family: var(--font-space-grotesk), sans-serif;
+  font-family: var(--primary-font), sans-serif;
   font-size: 18px;
   line-height: 1.6;
   margin: 0;
@@ -48,19 +84,43 @@ body {
 }
 
 a {
-  font-family: var(--font-montserrat), sans-serif;
   text-decoration: none;
   color: #fff;
 }
+
+button {
+  border: none;
+  border: 2px solid var(--primary-accent);
+  background-color: var(--primary-accent);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: var(--primary-font);
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  background-color: var(--light-background);
+  border: 2px solid var(--primary-accent);
+  color: var(--dark-accent);
+}
+
+button:disabled {
+  background-color: var(--light-accent);
+  border: 2px solid var(--light-accent);
+  cursor: not-allowed;
+}
+
 
 img {
   max-width: 100%;
   height: auto;
   display: block;
-}
-
-button {
-  font-family: var(--font-montserrat), sans-serif;
 }
 
 h1,
@@ -69,7 +129,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-montserrat), sans-serif;
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -79,6 +138,16 @@ h6 {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+}
+
+.page-container {
+  padding-top: var(--nav-height);
+}
+
+.page-container h1 {
+  font-size: 2rem;
+  margin-bottom: 4rem;
+  text-align: center;
 }
 
 .wrapper {
@@ -114,7 +183,6 @@ h6 {
 
 .loading-text {
   color: var(--light-background);
-  font-family: var(--font-montserrat);
   font-size: 1.2rem;
   font-weight: 500;
 }

@@ -17,4 +17,11 @@
   flex: 1;
 }
 
-
+.projectImage {
+  border-radius: 1000px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 80px;
+}

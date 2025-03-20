@@ -1,10 +1,11 @@
 import payloadConfig from '@/payload.config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
-import styles from './page.module.css'
 import Label from '../../components/Label'
-import Image from 'next/image'
 import { formatDateToMonthYear, getPlaceholderImage } from '@/app/lib/utils'
+import ImageWrapper from '../../components/ImageWrapper'
+import RichTextRenderer from '../../components/RichTextRenderer'
+import styles from './page.module.css'
 
 const ProjectDetailsPage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params
@@ -25,44 +26,39 @@ const ProjectDetailsPage = async ({ params }: { params: { slug: string } }) => {
     notFound()
   }
 
-  const renderContent = (children: any[]) => {
-    return children.map((child, index) => {
-      if (child.type === 'paragraph') {
-        return (
-          <p key={index}>
-            {child.children.map((textChild: any, textIndex: number) => (
-              <span key={textIndex}>{textChild.text}</span>
-            ))}
-          </p>
-        )
-      }
-      return null
-    })
-  }
+  const url =
+    typeof project.image === 'object' && project.image?.url
+      ? project.image.url
+      : getPlaceholderImage(160, 160)
 
   return (
-    <div className={`${styles.projectContainer} container`}>
-      <div className={styles.projectSidebar}>
-        <Image
-          src={getPlaceholderImage(160, 160)}
-          alt={project.title}
-          width={160}
-          height={160}
-          style={{ borderRadius: '50%', margin: '0 auto' }}
-        />
-        <Label label="Project" text={project.title} />
-        <Label label="Status" text={project.subtitle} />
-        <Label label="Role" text={project.role} />
-        {project.projectURL && <Label label="Site URL" text={project.projectURL} />}
-        <Label label="Start date" text={formatDateToMonthYear(project.timeStart)} />
-        <Label label="End date" text={formatDateToMonthYear(project.timeEnd)} />
-        <Label
-          label="Tech stack"
-          text={project.projectTechnologies.map((technology) => technology.technology).join(', ')}
-        />
-      </div>
-      <div className={styles.projectContent}>
-        {renderContent(project.description.root.children)}
+    <div className="page-container container">
+      <div className={`${styles.projectContainer}`}>
+        <div className={styles.projectSidebar}>
+          <div className={styles.projectImage}>
+            <ImageWrapper
+              image={{
+                url: url,
+                alt: project.title || 'Project image',
+              }}
+              width={80}
+              height={80}
+            />
+          </div>
+          <Label label="Project" text={project.title} />
+          <Label label="Status" text={project.subtitle} />
+          <Label label="Role" text={project.role} />
+          {project.projectURL && <Label label="Project URL" text={project.projectURL} />}
+          <Label label="Start date" text={formatDateToMonthYear(project.timeStart)} />
+          <Label label="End date" text={formatDateToMonthYear(project.timeEnd)} />
+          <Label
+            label="Tech stack"
+            text={project.projectTechnologies.map((technology) => technology.technology).join(', ')}
+          />
+        </div>
+        <div className={styles.projectContent}>
+          <RichTextRenderer content={project.description} />
+        </div>
       </div>
     </div>
   )

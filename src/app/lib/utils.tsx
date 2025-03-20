@@ -9,3 +9,7 @@ export const formatDateToMonthYear = (dateString: string): string => {
 export const getPlaceholderImage = (width: number, height: number): string => {
   return `https://placehold.co/${width}x${height}`
 }
+
+export const getImageUrl = (image: string): string => {
+  return `${process.env.NEXT_PUBLIC_URL}/media/${image}`
+}

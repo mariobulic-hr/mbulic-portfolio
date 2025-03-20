@@ -11,6 +11,12 @@ export const Projects: CollectionConfig = {
   },
   fields: [
     {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+    },
+    {
       name: 'title',
       type: 'text',
       required: true,
@@ -20,6 +26,7 @@ export const Projects: CollectionConfig = {
       type: 'text',
       required: true,
     },
+
     {
       name: 'role',
       type: 'text',

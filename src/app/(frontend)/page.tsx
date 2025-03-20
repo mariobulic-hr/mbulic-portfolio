@@ -4,6 +4,7 @@ import config from '@/payload.config'
 import { Projects } from './components/Projects'
 import TechTags from './components/TechTags'
 import HeroSection from './components/HeroSection'
+import ScrollArrow from './components/ScrollArrow'
 import Loading from './loading'
 
 import './styles.css'
@@ -16,7 +17,6 @@ export default async function HomePage() {
       <Suspense fallback={<Loading />}>
         <HeroSectionWithData />
       </Suspense>
-
       <Projects isHomePage={true} />
     </div>
   )
@@ -24,7 +24,6 @@ export default async function HomePage() {
 
 async function HeroSectionWithData() {
   'use server'
-  await new Promise((res) => setTimeout(res, 3000)) // Simulate delay
 
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
@@ -39,6 +38,7 @@ async function HeroSectionWithData() {
     <>
       <HeroSection homepageData={homepageData} />
       <TechTags techTags={homepageData?.techStack} />
+      <ScrollArrow />
     </>
   )
 }
