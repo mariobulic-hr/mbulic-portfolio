@@ -4,7 +4,13 @@ import { notFound } from 'next/navigation'
 import RichTextRenderer from '../../components/RichTextRenderer'
 import styles from './page.module.css'
 
-const StoriesDetailPage = async ({ params }: { params: { slug: string } }) => {
+type PageProps = {
+  params: Promise<{
+    slug: string
+  }>
+}
+
+const StoriesDetailPage = async ({ params }: PageProps) => {
   const { slug } = await params
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })

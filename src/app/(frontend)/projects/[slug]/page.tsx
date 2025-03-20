@@ -1,4 +1,4 @@
-import payloadConfig from '@/payload.config'
+import config from '@/payload.config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import Label from '../../components/Label'
@@ -7,9 +7,18 @@ import ImageWrapper from '../../components/ImageWrapper'
 import RichTextRenderer from '../../components/RichTextRenderer'
 import styles from './page.module.css'
 
-const ProjectDetailsPage = async ({ params }: { params: { slug: string } }) => {
+type PageProps = {
+  params: Promise<{
+    slug: string
+  }>
+}
+
+const ProjectDetailsPage = async ({ params }: PageProps) => {
   const { slug } = await params
+
+  const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
+
   const project = await payload
     .find({
       collection: 'projects',

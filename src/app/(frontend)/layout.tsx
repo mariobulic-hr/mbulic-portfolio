@@ -1,9 +1,10 @@
-import Navigation from './components/Navigation'
+import Navigation from './components/navigation/Navigation'
 import Footer from './components/Footer'
 import PageTransition from './components/PageTransition'
 import { Mona_Sans } from 'next/font/google'
 import { PostHogProvider } from '@/app/lib/providers'
 import './styles.css'
+import { MobileMenuProvider } from './context/Context'
 
 const monaSans = Mona_Sans({
   subsets: ['latin'],
@@ -27,11 +28,13 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" className={monaSans.className}>
       <body suppressHydrationWarning>
         <PostHogProvider>
-          <PageTransition>
-            <Navigation />
-            <main className="wrapper">{children}</main>
-            <Footer />
-          </PageTransition>
+          <MobileMenuProvider>
+            <PageTransition>
+              <Navigation />
+              <main className="wrapper">{children}</main>
+              <Footer />
+            </PageTransition>
+          </MobileMenuProvider>
         </PostHogProvider>
       </body>
     </html>

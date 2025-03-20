@@ -46,7 +46,7 @@
 
   --primary-font: 'Typonine Sans', sans-serif;
   --font-mona-sans: 'Mona Sans', sans-serif;
-  --border-radius: .5rem;
+  --border-radius: 0;
   --nav-height: 100px;
   --tech-tag-height: 120px;
 }
@@ -98,7 +98,7 @@ button {
   font-size: 1rem;
   font-weight: 300;
   font-family: var(--primary-font);
-  min-width: 200px;
+  min-width: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -138,10 +138,16 @@ h6 {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
 }
 
 .page-container {
   padding-top: var(--nav-height);
+  @media (max-width: 768px) {
+    padding-top: calc(var(--nav-height) / 3);
+  }
 }
 
 .page-container h1 {

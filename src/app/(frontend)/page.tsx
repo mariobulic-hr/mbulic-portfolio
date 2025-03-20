@@ -1,6 +1,6 @@
+import config from '@/payload.config'
 import { getPayload } from 'payload'
 import { Suspense } from 'react'
-import config from '@/payload.config'
 import { Projects } from './components/Projects'
 import TechTags from './components/TechTags'
 import HeroSection from './components/HeroSection'
@@ -36,7 +36,7 @@ async function HeroSectionWithData() {
 
   return (
     <>
-      <HeroSection homepageData={homepageData} />
+      <HeroSection homepageData={homepageData!} />
       <TechTags techTags={homepageData?.techStack} />
       <ScrollArrow />
     </>

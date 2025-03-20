@@ -1,8 +1,14 @@
 import Link from 'next/link'
 import styles from './page.module.css'
 
-const ThankYouPage = ({ searchParams }: { searchParams: { name: string } }) => {
-  const name = searchParams.name
+type PageProps = {
+  searchParams: Promise<{
+    name: string
+  }>
+}
+
+const ThankYouPage = async ({ searchParams }: PageProps) => {
+  const { name } = await searchParams
 
   const message = name
     ? `Dear ${name}, Thank You for Your Submission!`

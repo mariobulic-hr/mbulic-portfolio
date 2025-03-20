@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: row;
   gap: 2rem;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .projectSidebar {
@@ -11,9 +14,13 @@
   gap: 1rem;
   background-color: var(--dark-accent);
   max-width: 320px;
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 }
 
 .projectContent {
+  padding: 0 1rem;
   flex: 1;
 }
 

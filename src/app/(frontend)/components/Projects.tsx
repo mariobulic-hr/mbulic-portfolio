@@ -38,10 +38,7 @@ export async function Projects({ isHomePage }: { isHomePage: boolean }) {
   }
 
   return (
-    <div
-      className={`${styles.projectsSection} container`}
-      style={{ marginTop: isHomePage ? '4rem' : '0' }}
-    >
+    <div className={`${styles.projectsSection} ${isHomePage ? 'spacing-top' : ''}`}>
       {isHomePage ? (
         <h2>{strings.projects.homepageTitle}</h2>
       ) : (

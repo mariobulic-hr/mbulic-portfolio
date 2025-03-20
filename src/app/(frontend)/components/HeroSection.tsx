@@ -3,8 +3,9 @@ import Link from 'next/link'
 import strings from '@/app/lib/strings'
 import DotAccent from './DotAccent'
 import styles from './HeroSection.module.css'
+import { Homepage } from '@/payload-types'
 
-const HeroSection = ({ homepageData }: { homepageData: any }) => {
+const HeroSection = ({ homepageData }: { homepageData: Homepage }) => {
   return (
     <div className={`${styles.heroSection} container`}>
       <div className={styles.heroSectionContent}>
