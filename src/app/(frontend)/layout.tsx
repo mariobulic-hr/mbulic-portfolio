@@ -1,31 +1,31 @@
-import Navigation from './components/navigation/Navigation'
-import Footer from './components/Footer'
-import PageTransition from './components/PageTransition'
-import { Mona_Sans } from 'next/font/google'
 import { PostHogProvider } from '@/app/lib/providers'
 import './styles.css'
 import { MobileMenuProvider } from './context/Context'
+import { Metadata } from 'next'
+import { Mona_Sans } from 'next/font/google'
+import Navigation from './components/navigation/Navigation'
+import Footer from './components/Footer'
+import PageTransition from './components/PageTransition'
 
 const monaSans = Mona_Sans({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
+  variable: '--font-mona-sans',
 })
 
-export const metadata = {
-  description: 'Seasoned React developer',
+export const metadata: Metadata = {
   title: 'Mario Bulic',
+  description: 'Mario Bulic - Software Developer',
   icons: {
     icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
   },
   manifest: '/site.webmanifest',
 }
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
-  const { children } = props
-
+export default function FrontendLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={monaSans.className}>
+    <html lang="en" className={monaSans.variable}>
       <body suppressHydrationWarning>
         <PostHogProvider>
           <MobileMenuProvider>

@@ -16,6 +16,7 @@ const HeroSection = ({ homepageData }: { homepageData: Homepage }) => {
             width={0}
             height={0}
             priority
+            unoptimized
             style={{
               width: '100%',
               height: '100%',
