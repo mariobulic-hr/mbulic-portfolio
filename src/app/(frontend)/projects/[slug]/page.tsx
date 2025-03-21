@@ -44,7 +44,7 @@ const ProjectDetailsPage = async ({ params }: PageProps) => {
     <div className="page-container container">
       <div className={`${styles.projectContainer}`}>
         <div className={styles.projectSidebar}>
-          <div className={styles.projectImage}>
+          {/*  <div className={styles.projectImage}>
             <ImageWrapper
               image={{
                 url: url,
@@ -53,7 +53,7 @@ const ProjectDetailsPage = async ({ params }: PageProps) => {
               width={80}
               height={80}
             />
-          </div>
+          </div> */}
           <Label label="Project" text={project.title} />
           <Label label="Status" text={project.subtitle} />
           <Label label="Role" text={project.role} />

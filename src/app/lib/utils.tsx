@@ -11,5 +11,5 @@ export const getPlaceholderImage = (width: number, height: number): string => {
 }
 
 export const getImageUrl = (image: string): string => {
-  return `${process.env.NEXT_PUBLIC_URL}/media/${image}`
+  return `/media/${image}`
 }
