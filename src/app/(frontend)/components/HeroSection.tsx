@@ -13,10 +13,10 @@ const HeroSection = ({ homepageData }: { homepageData: Homepage }) => {
           <Image
             src="/images/mariobulic.jpeg"
             alt="Mario Bulic"
-            width={0}
-            height={0}
+            width={400}
+            height={400}
             priority
-            unoptimized
+            quality={90}
             style={{
               width: '100%',
               height: '100%',

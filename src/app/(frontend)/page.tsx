@@ -1,38 +1,25 @@
-import config from '@/payload.config'
 import { getPayload } from 'payload'
-import { Suspense } from 'react'
-import { Projects } from './components/Projects'
-import TechTags from './components/TechTags'
+import config from '@/payload.config'
 import HeroSection from './components/HeroSection'
+import TechTags from './components/TechTags'
 import ScrollArrow from './components/ScrollArrow'
-import Loading from './loading'
 
-import './styles.css'
+// This makes the page static
+export const revalidate = 3600 // Revalidate every hour
 
-export const dynamic = 'force-dynamic'
-
-export default async function HomePage() {
-  return (
-    <div className="main">
-      <Suspense fallback={<Loading />}>
-        <HeroSectionWithData />
-      </Suspense>
-      <Projects isHomePage={true} />
-    </div>
-  )
-}
-
-async function HeroSectionWithData() {
-  'use server'
-
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-
+async function getHomepageData() {
+  const payload = await getPayload({ config })
   const homepageData = await payload
     .findGlobal({
       slug: 'homepage',
     })
     .catch(() => null)
+
+  return homepageData
+}
+
+export default async function Home() {
+  const homepageData = await getHomepageData()
 
   return (
     <>
