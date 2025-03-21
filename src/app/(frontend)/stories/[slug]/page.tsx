@@ -10,6 +10,9 @@ type PageProps = {
   }>
 }
 
+// This makes the page static
+export const revalidate = 3600 // Revalidate every hour
+
 const StoriesDetailPage = async ({ params }: PageProps) => {
   const { slug } = await params
   const payloadConfig = await config
