@@ -11,7 +11,7 @@ const HeroSection = ({ homepageData }: { homepageData: Homepage }) => {
       <div className={styles.heroSectionContent}>
         <div className={styles.heroSectionImage}>
           <Image
-            src={`/public/images/mariobulic.jpeg`}
+            src="/images/mariobulic.jpeg"
             alt="Mario Bulic"
             width={0}
             height={0}
