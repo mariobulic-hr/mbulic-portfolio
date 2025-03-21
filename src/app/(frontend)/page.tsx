@@ -3,6 +3,7 @@ import config from '@/payload.config'
 import HeroSection from './components/HeroSection'
 import TechTags from './components/TechTags'
 import ScrollArrow from './components/ScrollArrow'
+import { Projects } from './components/Projects'
 
 // This makes the page static
 export const revalidate = 3600 // Revalidate every hour
@@ -26,6 +27,7 @@ export default async function Home() {
       <HeroSection homepageData={homepageData!} />
       <TechTags techTags={homepageData?.techStack} />
       <ScrollArrow />
+      <Projects isHomePage={true} />
     </>
   )
 }

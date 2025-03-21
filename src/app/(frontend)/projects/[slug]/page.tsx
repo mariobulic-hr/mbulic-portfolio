@@ -2,8 +2,7 @@ import config from '@/payload.config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import Label from '../../components/Label'
-import { formatDateToMonthYear, getPlaceholderImage } from '@/app/lib/utils'
-import ImageWrapper from '../../components/ImageWrapper'
+import { formatDateToMonthYear } from '@/app/lib/utils'
 import RichTextRenderer from '../../components/RichTextRenderer'
 import styles from './page.module.css'
 
@@ -35,10 +34,10 @@ const ProjectDetailsPage = async ({ params }: PageProps) => {
     notFound()
   }
 
-  const url =
+  /*   const url =
     typeof project.image === 'object' && project.image?.url
       ? project.image.url
-      : getPlaceholderImage(160, 160)
+      : getPlaceholderImage(160, 160) */
 
   return (
     <div className="page-container container">

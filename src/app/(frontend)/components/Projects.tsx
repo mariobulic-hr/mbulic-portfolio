@@ -22,16 +22,20 @@ const sortProjects = (projects: Project[]) => {
   })
 }
 
-export async function Projects({ isHomePage }: { isHomePage: boolean }) {
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-
+async function getProjects(isHomePage: boolean) {
+  const payload = await getPayload({ config })
   const { docs: projects } = await payload
     .find({
       collection: 'projects',
       limit: isHomePage ? 6 : 10,
     })
     .catch(() => ({ docs: [] }))
+
+  return projects
+}
+
+export async function Projects({ isHomePage }: { isHomePage: boolean }) {
+  const projects = await getProjects(isHomePage)
 
   if (!projects || projects.length === 0) {
     return null
