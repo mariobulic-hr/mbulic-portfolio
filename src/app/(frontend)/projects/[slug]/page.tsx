@@ -12,6 +12,9 @@ type PageProps = {
   }>
 }
 
+// This makes the page static
+export const revalidate = 3600 // Revalidate every hour
+
 const ProjectDetailsPage = async ({ params }: PageProps) => {
   const { slug } = await params
 
