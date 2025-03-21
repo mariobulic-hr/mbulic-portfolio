@@ -20,9 +20,49 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
   return (
     <PHProvider client={posthog}>
       <SuspendedPostHogPageView />
+      <OnlineStatusTracker />
       {children}
     </PHProvider>
   )
+}
+
+function OnlineStatusTracker() {
+  const posthog = usePostHog()
+
+  useEffect(() => {
+    if (!posthog) return
+
+    const handleOnline = () => {
+      posthog.capture('user_online', {
+        timestamp: new Date().toISOString(),
+      })
+    }
+
+    const handleOffline = () => {
+      posthog.capture('user_offline', {
+        timestamp: new Date().toISOString(),
+      })
+    }
+
+    // Initial status
+    if (navigator.onLine) {
+      handleOnline()
+    } else {
+      handleOffline()
+    }
+
+    // Add event listeners
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
+  }, [posthog])
+
+  return null
 }
 
 function PostHogPageView() {
@@ -39,6 +79,14 @@ function PostHogPageView() {
       }
 
       posthog.capture('$pageview', { $current_url: url })
+
+      // Track page leave when component unmounts or pathname changes
+      return () => {
+        posthog.capture('$pageleave', {
+          $current_url: url,
+          $time_spent: (Date.now() - window.performance.timing.navigationStart) / 1000,
+        })
+      }
     }
   }, [pathname, searchParams, posthog])
 
