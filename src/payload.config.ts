@@ -1,6 +1,5 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -13,6 +12,7 @@ import { Projects } from './collections/Projects'
 import { Stories } from './collections/Stories'
 import { HomepageGlobal } from './globals/Homepage'
 import { resendAdapter } from '@payloadcms/email-resend'
+import { cloudinaryStorage } from 'payload-cloudinary'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,13 +41,25 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
       ssl: {
-        rejectUnauthorized: false, // Allows self-signed certs
+        rejectUnauthorized: false,
       },
     },
   }),
   sharp,
   plugins: [
-    payloadCloudPlugin(),
-    // storage-adapter-placeholder
+    cloudinaryStorage({
+      config: {
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME || '',
+        api_key: process.env.CLOUDINARY_API_KEY || '',
+        api_secret: process.env.CLOUDINARY_API_SECRET || '',
+      },
+      collections: {
+        media: true,
+        // Add more collections as needed
+      },
+      folder: 'payload-media',
+      disableLocalStorage: true, // Optional, defaults to true
+      enabled: true, // Optional, defaults to true
+    }),
   ],
 })
