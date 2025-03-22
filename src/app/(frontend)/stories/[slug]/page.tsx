@@ -1,5 +1,5 @@
-import { getPayload } from 'payload'
 import config from '@/payload.config'
+import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
 import RichTextRenderer from '../../components/RichTextRenderer'
 import styles from './page.module.css'

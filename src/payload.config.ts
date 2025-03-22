@@ -12,6 +12,7 @@ import { Media } from './collections/Media'
 import { Projects } from './collections/Projects'
 import { Stories } from './collections/Stories'
 import { HomepageGlobal } from './globals/Homepage'
+import { resendAdapter } from '@payloadcms/email-resend'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -31,6 +32,11 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  email: resendAdapter({
+    defaultFromAddress: 'mbulic@live.com',
+    defaultFromName: 'Mario Bulic',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',

@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     // Send email using Resend API
     const response = await resend.emails.send({
-      from: 'mbulic@proton.me',
+      from: 'mbulic@live.com',
       to: [to],
       subject,
       text,

@@ -22,10 +22,19 @@ async function getHomepageData() {
 export default async function Home() {
   const homepageData = await getHomepageData()
 
+  if (!homepageData) {
+    return (
+      <div className="container">
+        <h1>Error loading homepage data</h1>
+        <p>Please try again later.</p>
+      </div>
+    )
+  }
+
   return (
     <>
-      <HeroSection homepageData={homepageData!} />
-      <TechTags techTags={homepageData?.techStack} />
+      <HeroSection homepageData={homepageData} />
+      <TechTags techTags={homepageData.techStack} />
       <ScrollArrow />
       <Projects isHomePage={true} />
     </>
