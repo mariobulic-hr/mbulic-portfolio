@@ -124,7 +124,7 @@ const QuoteForm = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        to: 'mbulic@live.com',
+        to: 'hello@mariobulic.com',
         from: email,
         subject: `Website Quote Request from ${firstName} ${lastName}`,
         html: `<p>

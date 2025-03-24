@@ -33,7 +33,7 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   email: resendAdapter({
-    defaultFromAddress: 'mbulic@live.com',
+    defaultFromAddress: 'hello@mariobulic.com',
     defaultFromName: 'Mario Bulic',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
