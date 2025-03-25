@@ -21,6 +21,7 @@ const HeroSection = ({ homepageData }: { homepageData: Homepage }) => {
               width: '100%',
               height: '100%',
               objectFit: 'cover',
+              maxHeight: '420px',
             }}
           />
         </div>
