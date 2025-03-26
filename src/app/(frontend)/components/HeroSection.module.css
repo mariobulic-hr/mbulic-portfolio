@@ -24,13 +24,17 @@
 }
 
 .heroSectionImage {
-    flex: 35%;
+    height: 400px;
+    width: 400px;
     margin-right: 2rem;
+    border-radius: 10px;
     overflow: hidden;
 
     @media (max-width: 768px) {
+        width: 100%;
         margin-right: 0;
         margin-bottom: 2rem;
+        border-radius: 0;
     }
 }
 
