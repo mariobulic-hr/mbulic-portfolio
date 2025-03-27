@@ -1,7 +1,7 @@
 {
   "name": "mariobulic-portfolio",
   "version": "1.0.0",
-  "description": "A blank template to get started with Payload 3.0",
+  "description": "Personal portfolio website for Mario Bulic",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -15,14 +15,13 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
-    "@mdi/js": "^7.4.47",
-    "@mdi/react": "^1.6.1",
     "@payloadcms/db-postgres": "latest",
     "@payloadcms/email-resend": "^3.28.1",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
     "@payloadcms/plugin-cloud-storage": "^3.29.0",
     "@payloadcms/richtext-lexical": "^3.28.1",
+    "@phosphor-icons/react": "^2.1.7",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
     "motion": "^12.5.0",

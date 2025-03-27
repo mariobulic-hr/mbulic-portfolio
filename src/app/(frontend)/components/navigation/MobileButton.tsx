@@ -1,8 +1,6 @@
 'use client'
-
-import { mdiMenuOpen } from '@mdi/js'
-import Icon from '@mdi/react'
 import { useMobileMenu } from '@/app/(frontend)/context/Context'
+import { List } from '@phosphor-icons/react'
 import styles from './MobileButton.module.css'
 
 const MobileButton = () => {
@@ -12,7 +10,7 @@ const MobileButton = () => {
   }
   return (
     <div className={styles.navigationMenuButton} onClick={toggleMenu}>
-      <Icon path={mdiMenuOpen} size={2} />
+      <List size={32} />
     </div>
   )
 }

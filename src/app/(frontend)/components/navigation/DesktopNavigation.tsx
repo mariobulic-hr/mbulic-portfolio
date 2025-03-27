@@ -1,8 +1,8 @@
-import { mdiGithub } from '@mdi/js'
-import styles from './DesktopNavigation.module.css'
+'use client'
+
 import Link from 'next/link'
-import Icon from '@mdi/react'
-import { mdiLinkedin, mdiTreeOutline } from '@mdi/js'
+import { GithubLogo, LinktreeLogo, LinkedinLogo } from '@phosphor-icons/react'
+import styles from './DesktopNavigation.module.css'
 
 const DesktopNavigation = () => {
   return (
@@ -18,17 +18,17 @@ const DesktopNavigation = () => {
       </li>
       <li className={styles.navigationItem}>
         <a href="https://github.com/mariobulic-hr" target="_blank" rel="noopener noreferrer">
-          <Icon path={mdiGithub} title="Github profile" size={1} />
+          <GithubLogo size={32} />
         </a>
       </li>
       <li className={styles.navigationItem}>
         <a href="https://linkedin.com/in/mariobulic" target="_blank" rel="noopener noreferrer">
-          <Icon path={mdiLinkedin} title="Linkedin profile" size={1} />
+          <LinkedinLogo size={32} />
         </a>
       </li>
       <li className={styles.navigationItem}>
         <a href="https://linktr.ee/mariobulic" target="_blank" rel="noopener noreferrer">
-          <Icon path={mdiTreeOutline} title="Github profile" size={1} />
+          <LinktreeLogo size={32} />
         </a>
       </li>
     </ul>

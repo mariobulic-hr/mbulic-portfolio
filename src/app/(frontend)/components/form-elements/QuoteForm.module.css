@@ -11,6 +11,13 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.nameFields {
+    @media screen and (max-width: 480px) {
+        flex-direction: column;
+        gap: 0;
+    };
+}
+
 .formGroup {
     margin-bottom: 1.5rem;
 }
@@ -67,6 +74,13 @@
     font-weight: 600;
     color: var(--primary-accent);
     text-transform: uppercase;
+}
+
+.reviewDetailsValue {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
 }
 
 .errorInput {

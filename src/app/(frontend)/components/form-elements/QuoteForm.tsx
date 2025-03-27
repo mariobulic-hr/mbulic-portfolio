@@ -2,10 +2,9 @@
 
 import { useState } from 'react'
 import { useForm as useReactForm } from 'react-hook-form'
-import Icon from '@mdi/react'
-import { mdiChevronLeft, mdiChevronRight } from '@mdi/js'
 import { useRouter } from 'next/navigation'
 import styles from './QuoteForm.module.css'
+import { CaretLeft, CaretRight } from '@phosphor-icons/react'
 
 interface QuoteFormData {
   firstName: string
@@ -338,11 +337,11 @@ const QuoteForm = () => {
       </form>
       <div className={styles.buttonContainer}>
         <button disabled={currentStep === MIN_STEP} onClick={handlePreviousStep}>
-          <Icon path={mdiChevronLeft} size={1} /> Back
+          <CaretLeft size={16} /> Back
         </button>
         <button onClick={handleNextStep} disabled={currentStep === MAX_STEP}>
           Next
-          <Icon path={mdiChevronRight} size={1} />
+          <CaretRight size={16} />
         </button>
       </div>
     </>

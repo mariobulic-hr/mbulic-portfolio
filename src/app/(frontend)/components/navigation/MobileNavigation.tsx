@@ -3,8 +3,7 @@
 import { useMobileMenu } from '../../context/Context'
 import styles from './MobileNavigation.module.css'
 import Link from 'next/link'
-import Icon from '@mdi/react'
-import { mdiGithub, mdiLinkedin, mdiTreeOutline } from '@mdi/js'
+import { GithubLogo, LinktreeLogo, LinkedinLogo } from '@phosphor-icons/react'
 import { usePathname } from 'next/navigation'
 
 const MobileNavigation = () => {
@@ -48,7 +47,7 @@ const MobileNavigation = () => {
               rel="noopener noreferrer"
               aria-label="Visit Github profile"
             >
-              <Icon path={mdiGithub} size={1} />
+              <GithubLogo size={32} />
             </Link>
             <Link
               href="https://linkedin.com/in/mariobulic"
@@ -56,7 +55,7 @@ const MobileNavigation = () => {
               rel="noopener noreferrer"
               aria-label="Visit LinkedIn profile"
             >
-              <Icon path={mdiLinkedin} size={1} />
+              <LinkedinLogo size={32} />
             </Link>
             <Link
               href="https://linktr.ee/mariobulic"
@@ -64,7 +63,7 @@ const MobileNavigation = () => {
               rel="noopener noreferrer"
               aria-label="Visit Linktree profile"
             >
-              <Icon path={mdiTreeOutline} size={1} />
+              <LinktreeLogo size={32} />
             </Link>
           </div>
         </nav>

@@ -1,7 +1,6 @@
 'use client'
 
-import Icon from '@mdi/react'
-import { mdiArrowDownDropCircleOutline } from '@mdi/js'
+import { CaretCircleDown } from '@phosphor-icons/react'
 import strings from '@/app/lib/strings'
 import styles from './ScrollArrow.module.css'
 
@@ -16,7 +15,7 @@ const ScrollArrow = () => {
   return (
     <div className={styles.scrollArrow} onClick={handleScroll}>
       <div className={styles.scrollArrowText}>{strings.homepage.scroll}</div>
-      <Icon path={mdiArrowDownDropCircleOutline} size={1} />
+      <CaretCircleDown size={32} />
     </div>
   )
 }
