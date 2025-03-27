@@ -39,6 +39,6 @@
     color: var(--primary-accent);
 }
 
-.navigationItem:nth-last-child(-n+2) {
+.navigationItem:nth-last-child(-n+3) {
     margin-right: 0.5rem;
 }
