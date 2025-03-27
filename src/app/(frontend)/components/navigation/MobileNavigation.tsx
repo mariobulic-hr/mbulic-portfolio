@@ -4,7 +4,7 @@ import { useMobileMenu } from '../../context/Context'
 import styles from './MobileNavigation.module.css'
 import Link from 'next/link'
 import Icon from '@mdi/react'
-import { mdiGithub, mdiLinkedin } from '@mdi/js'
+import { mdiGithub, mdiLinkedin, mdiTreeOutline } from '@mdi/js'
 import { usePathname } from 'next/navigation'
 
 const MobileNavigation = () => {
@@ -57,6 +57,14 @@ const MobileNavigation = () => {
               aria-label="Visit LinkedIn profile"
             >
               <Icon path={mdiLinkedin} size={1} />
+            </Link>
+            <Link
+              href="https://linktr.ee/mariobulic"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit Linktree profile"
+            >
+              <Icon path={mdiTreeOutline} size={1} />
             </Link>
           </div>
         </nav>
