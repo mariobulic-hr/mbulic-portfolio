@@ -1,7 +1,7 @@
 FROM node:20-alpine
 
 # Install pnpm version 9 (matching your package.json requirement)
-RUN corepack enable && corepack prepare pnpm@9 --activate
+RUN corepack enable && corepack prepare pnpm@10 --activate
 
 WORKDIR /app
 
