@@ -2,15 +2,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1rem auto 0;
+    margin: 1rem auto 1rem;
     color: var(--light-background);
     cursor: pointer;
     animation: pulse 2s infinite;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    min-width: auto;
+    font-family: var(--primary-font);
+    font-size: 1rem;
 }
 
 .scrollArrow:hover {
     animation: none;
     color: var(--primary-accent);
+    background: none;
+    border: none;
 }
 
 @keyframes pulse {
@@ -25,5 +33,11 @@
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scrollArrow {
+        animation: none;
     }
 }

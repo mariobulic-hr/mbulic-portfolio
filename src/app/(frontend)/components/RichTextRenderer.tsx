@@ -51,7 +51,6 @@ export default function RichTextRenderer({ content }: { content: RichTextContent
           if ('text' in child) {
             return renderTextNode(child as TextNode, childIndex)
           }
-          // For nested blocks, we'll render their children directly
           if ('children' in child) {
             return (child as BlockNode).children
               ?.map((nestedChild, nestedIndex) => {
@@ -69,32 +68,22 @@ export default function RichTextRenderer({ content }: { content: RichTextContent
 
     switch (block.type) {
       case 'paragraph':
-        return (
-          <p key={`p-${index}`} className="mb-4">
-            {children}
-          </p>
-        )
-      case 'heading':
+        return <p key={`p-${index}`}>{children}</p>
+      case 'heading': {
         const headingTag = (block.tag as HeadingTag) || 'h2'
         const HeadingComponent = headingTag
-        return (
-          <HeadingComponent key={`h-${index}`} className="text-2xl font-bold mb-4">
-            {children}
-          </HeadingComponent>
-        )
+        return <HeadingComponent key={`h-${index}`}>{children}</HeadingComponent>
+      }
       case 'quote':
         return (
-          <blockquote
-            key={`quote-${index}`}
-            className="border-l-4 border-primary-accent pl-4 italic mb-4"
-          >
+          <blockquote key={`quote-${index}`} style={{ borderLeft: '4px solid var(--primary-accent)', paddingLeft: '1rem', fontStyle: 'italic', marginBottom: '1rem' }}>
             {children}
           </blockquote>
         )
-      case 'list':
+      case 'list': {
         const ListComponent = block.tag === 'ul' ? 'ul' : 'ol'
         return (
-          <ListComponent key={`list-${index}`} className="list-disc pl-6 mb-4">
+          <ListComponent key={`list-${index}`} style={{ paddingLeft: '1.5rem', marginBottom: '1rem' }}>
             {block.children?.map((item, itemIndex) => {
               if (item.type === 'listitem' && 'children' in item) {
                 return (
@@ -115,6 +104,7 @@ export default function RichTextRenderer({ content }: { content: RichTextContent
             })}
           </ListComponent>
         )
+      }
       case 'listitem':
         return <li key={`li-${index}`}>{children}</li>
       default:
@@ -122,9 +112,5 @@ export default function RichTextRenderer({ content }: { content: RichTextContent
     }
   }
 
-  return (
-    <div className="prose prose-invert max-w-none">
-      {content.root.children.map((block, index) => renderBlock(block, index))}
-    </div>
-  )
+  return <div>{content.root.children.map((block, index) => renderBlock(block, index))}</div>
 }

@@ -24,7 +24,9 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  serverURL: process.env.NEXT_PUBLIC_URL || 'http://localhost:3000',
+  serverURL: process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_URL || 'https://mariobulic.com'
+    : 'http://localhost:3000',
   collections: [Users, Media, Projects, Stories],
   globals: [HomepageGlobal],
   editor: lexicalEditor(),

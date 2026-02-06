@@ -18,7 +18,16 @@ interface QuoteFormData {
 }
 
 const MIN_STEP = 0
-const MAX_STEP = 6 // Number of steps - 1
+const MAX_STEP = 6
+
+const reviewFields: { label: string; key: keyof QuoteFormData }[] = [
+  { label: 'Name', key: 'firstName' },
+  { label: 'Company', key: 'company' },
+  { label: 'Project Type', key: 'projectType' },
+  { label: 'Budget', key: 'budget' },
+  { label: 'Timeline', key: 'timeline' },
+  { label: 'Description', key: 'description' },
+]
 
 const QuoteForm = () => {
   const router = useRouter()
@@ -28,16 +37,10 @@ const QuoteForm = () => {
     formState: { errors },
     watch,
     trigger,
+    getValues,
   } = useReactForm<QuoteFormData>()
 
   const firstName = watch('firstName')
-  const lastName = watch('lastName')
-  const email = watch('email')
-  const company = watch('company')
-  const projectType = watch('projectType')
-  const budget = watch('budget')
-  const timeline = watch('timeline')
-  const description = watch('description')
 
   const prompts = [
     {
@@ -72,7 +75,6 @@ const QuoteForm = () => {
   ]
 
   const [currentStep, setCurrentStep] = useState(0)
-  const [currentPrompt, setCurrentPrompt] = useState(prompts[0])
   const [loading, setLoading] = useState(false)
 
   const validateStep = async (step: number): Promise<boolean> => {
@@ -101,39 +103,35 @@ const QuoteForm = () => {
       const isValid = await validateStep(currentStep)
       if (isValid) {
         setCurrentStep(currentStep + 1)
-        setCurrentPrompt(prompts[currentStep + 1])
       }
     }
   }
 
-  const handlePreviousStep = async () => {
+  const handlePreviousStep = () => {
     if (currentStep > MIN_STEP) {
-      const isValid = await validateStep(currentStep)
-      if (isValid) {
-        setCurrentStep(currentStep - 1)
-        setCurrentPrompt(prompts[currentStep - 1])
-      }
+      setCurrentStep(currentStep - 1)
     }
   }
 
   const onSubmit = async () => {
     setLoading(true)
+    const values = getValues()
 
     const response = await fetch('/api/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         to: 'hello@mariobulic.com',
-        from: email,
-        subject: `Website Quote Request from ${firstName} ${lastName}`,
+        from: values.email,
+        subject: `Website Quote Request from ${values.firstName} ${values.lastName}`,
         html: `<p>
-          <strong>Name:</strong> ${firstName} ${lastName}<br>
-          <strong>Email:</strong> ${email}<br>
-          <strong>Company:</strong> ${company}<br>
-          <strong>Project Type:</strong> ${projectType}<br>
-          <strong>Budget:</strong> ${budget}<br>
-          <strong>Timeline:</strong> ${timeline}<br>
-          <strong>Description:</strong> ${description}<br>
+          <strong>Name:</strong> ${values.firstName} ${values.lastName}<br>
+          <strong>Email:</strong> ${values.email}<br>
+          <strong>Company:</strong> ${values.company}<br>
+          <strong>Project Type:</strong> ${values.projectType}<br>
+          <strong>Budget:</strong> ${values.budget}<br>
+          <strong>Timeline:</strong> ${values.timeline}<br>
+          <strong>Description:</strong> ${values.description}<br>
         </p>`,
       }),
     })
@@ -142,13 +140,15 @@ const QuoteForm = () => {
     setLoading(false)
 
     if (!data.error) {
-      router.push(`/thank-you?name=${encodeURIComponent(firstName || '')}`)
+      router.push(`/thank-you?name=${encodeURIComponent(values.firstName || '')}`)
     }
   }
 
+  const values = getValues()
+
   return (
     <>
-      <div className={styles.formPrompt}>{currentPrompt.description}</div>
+      <div className={styles.formPrompt}>{prompts[currentStep].description}</div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         {currentStep === 0 && (
           <>
@@ -160,9 +160,12 @@ const QuoteForm = () => {
                   id="firstName"
                   {...register('firstName', { required: 'First name is required' })}
                   className={errors.firstName ? styles.errorInput : ''}
+                  aria-describedby={errors.firstName ? 'firstName-error' : undefined}
                 />
                 {errors.firstName && (
-                  <span className={styles.errorMessage}>{errors.firstName.message}</span>
+                  <span id="firstName-error" className={styles.errorMessage}>
+                    {errors.firstName.message}
+                  </span>
                 )}
               </div>
               <div className={styles.formGroup}>
@@ -172,9 +175,12 @@ const QuoteForm = () => {
                   id="lastName"
                   {...register('lastName', { required: 'Last name is required' })}
                   className={errors.lastName ? styles.errorInput : ''}
+                  aria-describedby={errors.lastName ? 'lastName-error' : undefined}
                 />
                 {errors.lastName && (
-                  <span className={styles.errorMessage}>{errors.lastName.message}</span>
+                  <span id="lastName-error" className={styles.errorMessage}>
+                    {errors.lastName.message}
+                  </span>
                 )}
               </div>
             </div>
@@ -191,143 +197,135 @@ const QuoteForm = () => {
                   },
                 })}
                 className={errors.email ? styles.errorInput : ''}
+                aria-describedby={errors.email ? 'email-error' : undefined}
               />
-              {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
+              {errors.email && (
+                <span id="email-error" className={styles.errorMessage}>
+                  {errors.email.message}
+                </span>
+              )}
             </div>
           </>
         )}
 
         {currentStep === 1 && (
-          <>
-            <div className={styles.formGroup}>
-              <label htmlFor="company">Company (Optional)</label>
-              <input type="text" id="company" {...register('company')} />
-            </div>
-          </>
+          <div className={styles.formGroup}>
+            <label htmlFor="company">Company (Optional)</label>
+            <input type="text" id="company" {...register('company')} />
+          </div>
         )}
 
         {currentStep === 2 && (
-          <>
-            <div className={styles.formGroup}>
-              <label htmlFor="projectType">Project Type</label>
-              <select
-                id="projectType"
-                {...register('projectType', { required: 'Please select a project type' })}
-                className={errors.projectType ? styles.errorInput : ''}
-              >
-                <option value="">Select a project type</option>
-                <option value="Website Development">Website Development</option>
-                <option value="Web Application">Web Application</option>
-                <option value="E-commerce">E-commerce</option>
-                <option value="Mobile App">Mobile App</option>
-                <option value="Other">Other</option>
-              </select>
-              {errors.projectType && (
-                <span className={styles.errorMessage}>{errors.projectType.message}</span>
-              )}
-            </div>
-          </>
+          <div className={styles.formGroup}>
+            <label htmlFor="projectType">Project Type</label>
+            <select
+              id="projectType"
+              {...register('projectType', { required: 'Please select a project type' })}
+              className={errors.projectType ? styles.errorInput : ''}
+              aria-describedby={errors.projectType ? 'projectType-error' : undefined}
+            >
+              <option value="">Select a project type</option>
+              <option value="Website Development">Website Development</option>
+              <option value="Web Application">Web Application</option>
+              <option value="E-commerce">E-commerce</option>
+              <option value="Mobile App">Mobile App</option>
+              <option value="Other">Other</option>
+            </select>
+            {errors.projectType && (
+              <span id="projectType-error" className={styles.errorMessage}>
+                {errors.projectType.message}
+              </span>
+            )}
+          </div>
         )}
+
         {currentStep === 3 && (
-          <>
-            <div className={styles.formGroup}>
-              <label htmlFor="budget">Budget Range</label>
-              <select
-                id="budget"
-                {...register('budget', { required: 'Please select a budget range' })}
-                className={errors.budget ? styles.errorInput : ''}
-              >
-                <option value="">Select a budget range</option>
-                <option value="$0 - $1,000">0 - $1,000</option>
-                <option value="$1,000 - $5,000">$1,000 - $5,000</option>
-                <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                <option value="$10,000 - $25,000">$10,000 - $25,000</option>
-                <option value="$25,000 - $50,000">$25,000 - $50,000</option>
-                <option value="$50,000+">$50,000+</option>
-              </select>
-              {errors.budget && (
-                <span className={styles.errorMessage}>{errors.budget.message}</span>
-              )}
-            </div>
-          </>
+          <div className={styles.formGroup}>
+            <label htmlFor="budget">Budget Range</label>
+            <select
+              id="budget"
+              {...register('budget', { required: 'Please select a budget range' })}
+              className={errors.budget ? styles.errorInput : ''}
+              aria-describedby={errors.budget ? 'budget-error' : undefined}
+            >
+              <option value="">Select a budget range</option>
+              <option value="$0 - $1,000">0 - $1,000</option>
+              <option value="$1,000 - $5,000">$1,000 - $5,000</option>
+              <option value="$5,000 - $10,000">$5,000 - $10,000</option>
+              <option value="$10,000 - $25,000">$10,000 - $25,000</option>
+              <option value="$25,000 - $50,000">$25,000 - $50,000</option>
+              <option value="$50,000+">$50,000+</option>
+            </select>
+            {errors.budget && (
+              <span id="budget-error" className={styles.errorMessage}>
+                {errors.budget.message}
+              </span>
+            )}
+          </div>
         )}
 
         {currentStep === 4 && (
-          <>
-            <div className={styles.formGroup}>
-              <label htmlFor="timeline">Timeline</label>
-              <select
-                id="timeline"
-                {...register('timeline', { required: 'Please select a timeline' })}
-                className={errors.timeline ? styles.errorInput : ''}
-              >
-                <option value="">Select a timeline</option>
-                <option value="ASAP (1-2 weeks)">ASAP (1-2 weeks)</option>
-                <option value="Short term (2-4 weeks)">Short term (2-4 weeks)</option>
-                <option value="Medium term (1-2 months)">Medium term (1-2 months)</option>
-                <option value="Long term (3+ months)">Long term (3+ months)</option>
-                <option value="Flexible">Flexible</option>
-              </select>
-              {errors.timeline && (
-                <span className={styles.errorMessage}>{errors.timeline.message}</span>
-              )}
-            </div>
-          </>
+          <div className={styles.formGroup}>
+            <label htmlFor="timeline">Timeline</label>
+            <select
+              id="timeline"
+              {...register('timeline', { required: 'Please select a timeline' })}
+              className={errors.timeline ? styles.errorInput : ''}
+              aria-describedby={errors.timeline ? 'timeline-error' : undefined}
+            >
+              <option value="">Select a timeline</option>
+              <option value="ASAP (1-2 weeks)">ASAP (1-2 weeks)</option>
+              <option value="Short term (2-4 weeks)">Short term (2-4 weeks)</option>
+              <option value="Medium term (1-2 months)">Medium term (1-2 months)</option>
+              <option value="Long term (3+ months)">Long term (3+ months)</option>
+              <option value="Flexible">Flexible</option>
+            </select>
+            {errors.timeline && (
+              <span id="timeline-error" className={styles.errorMessage}>
+                {errors.timeline.message}
+              </span>
+            )}
+          </div>
         )}
 
         {currentStep === 5 && (
-          <>
-            <div className={styles.formGroup}>
-              <label htmlFor="description">Project Description</label>
-              <textarea
-                id="description"
-                {...register('description', {
-                  required: 'Please provide a project description',
-                  minLength: {
-                    value: 50,
-                    message: 'Description should be at least 50 characters',
-                  },
-                })}
-                className={errors.description ? styles.errorInput : ''}
-                rows={5}
-              />
-              {errors.description && (
-                <span className={styles.errorMessage}>{errors.description.message}</span>
-              )}
-            </div>
-          </>
+          <div className={styles.formGroup}>
+            <label htmlFor="description">Project Description</label>
+            <textarea
+              id="description"
+              {...register('description', {
+                required: 'Please provide a project description',
+                minLength: {
+                  value: 50,
+                  message: 'Description should be at least 50 characters',
+                },
+              })}
+              className={errors.description ? styles.errorInput : ''}
+              aria-describedby={errors.description ? 'description-error' : undefined}
+              rows={5}
+            />
+            {errors.description && (
+              <span id="description-error" className={styles.errorMessage}>
+                {errors.description.message}
+              </span>
+            )}
+          </div>
         )}
 
         {currentStep === 6 && (
           <>
             <div className={styles.reviewDetails}>
               <h2>Review your details</h2>
-              <div className={styles.reviewDetailsGroup}>
-                <span className={styles.reviewDetailsLabel}>Name</span>
-                <span className={styles.reviewDetailsValue}>
-                  {firstName} {lastName}
-                </span>
-              </div>
-              <div className={styles.reviewDetailsGroup}>
-                <span className={styles.reviewDetailsLabel}>Company</span>
-                <span className={styles.reviewDetailsValue}>{company}</span>
-              </div>
-              <div className={styles.reviewDetailsGroup}>
-                <span className={styles.reviewDetailsLabel}>Project Type</span>
-                <span className={styles.reviewDetailsValue}>{projectType}</span>
-              </div>
-              <div className={styles.reviewDetailsGroup}>
-                <span className={styles.reviewDetailsLabel}>Budget</span>
-                <span className={styles.reviewDetailsValue}>{budget}</span>
-              </div>
-              <div className={styles.reviewDetailsGroup}>
-                <span className={styles.reviewDetailsLabel}>Timeline</span>
-                <span className={styles.reviewDetailsValue}>{timeline}</span>
-              </div>
-              <div className={styles.reviewDetailsGroup}>
-                <span className={styles.reviewDetailsLabel}>Description</span>
-                <span className={styles.reviewDetailsValue}>{description}</span>
-              </div>
+              {reviewFields.map(({ label, key }) => (
+                <div key={key} className={styles.reviewDetailsGroup}>
+                  <span className={styles.reviewDetailsLabel}>{label}</span>
+                  <span className={styles.reviewDetailsValue}>
+                    {key === 'firstName'
+                      ? `${values.firstName} ${values.lastName}`
+                      : values[key]}
+                  </span>
+                </div>
+              ))}
             </div>
             <button type="submit" className={styles.submitButton}>
               {loading ? 'Sending...' : 'Looks good, send!'}
@@ -336,10 +334,18 @@ const QuoteForm = () => {
         )}
       </form>
       <div className={styles.buttonContainer}>
-        <button disabled={currentStep === MIN_STEP} onClick={handlePreviousStep}>
+        <button
+          disabled={currentStep === MIN_STEP}
+          onClick={handlePreviousStep}
+          aria-label="Go to previous step"
+        >
           <CaretLeft size={16} /> Back
         </button>
-        <button onClick={handleNextStep} disabled={currentStep === MAX_STEP}>
+        <button
+          onClick={handleNextStep}
+          disabled={currentStep === MAX_STEP}
+          aria-label="Go to next step"
+        >
           Next
           <CaretRight size={16} />
         </button>

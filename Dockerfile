@@ -1,31 +1,43 @@
-FROM node:20-alpine
+# Stage 1: Build
+FROM node:20-alpine AS builder
 
-# Install build dependencies for native modules like sharp
 RUN apk add --no-cache \
     python3 \
     make \
     g++ \
     vips-dev
 
-# Install pnpm version 9 (matching your package.json requirement)
 RUN corepack enable && corepack prepare pnpm@10 --activate
 
 WORKDIR /app
 
-# Copy package files
 COPY package.json pnpm-lock.yaml* ./
 
-# Install dependencies (removed --frozen-lockfile)
 RUN pnpm install
 
-# Copy application code
 COPY . .
 
-# Build the application
 RUN pnpm build
 
-# Expose port (change if your app uses a different port)
+# Stage 2: Production
+FROM node:20-alpine AS runner
+
+RUN apk add --no-cache vips
+
+RUN corepack enable && corepack prepare pnpm@10 --activate
+
+WORKDIR /app
+
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/public ./public
+
+USER nextjs
+
 EXPOSE 3000
 
-# Start command
 CMD ["pnpm", "start"]

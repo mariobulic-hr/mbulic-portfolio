@@ -6,17 +6,18 @@ import styles from './ScrollArrow.module.css'
 
 const ScrollArrow = () => {
   const handleScroll = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth',
-    })
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <div className={styles.scrollArrow} onClick={handleScroll}>
-      <div className={styles.scrollArrowText}>{strings.homepage.scroll}</div>
+    <button
+      className={styles.scrollArrow}
+      onClick={handleScroll}
+      aria-label="Scroll down to projects"
+    >
+      <span className={styles.scrollArrowText}>{strings.homepage.scroll}</span>
       <CaretCircleDown size={32} />
-    </div>
+    </button>
   )
 }
 

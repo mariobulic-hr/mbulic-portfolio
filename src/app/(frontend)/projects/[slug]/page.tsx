@@ -12,8 +12,7 @@ type PageProps = {
   }>
 }
 
-// This makes the page static
-export const revalidate = 3600 // Revalidate every hour
+export const revalidate = 3600
 
 const ProjectDetailsPage = async ({ params }: PageProps) => {
   const { slug } = await params
@@ -37,25 +36,10 @@ const ProjectDetailsPage = async ({ params }: PageProps) => {
     notFound()
   }
 
-  /*   const url =
-    typeof project.image === 'object' && project.image?.url
-      ? project.image.url
-      : getPlaceholderImage(160, 160) */
-
   return (
     <div className="page-container container">
       <div className={`${styles.projectContainer}`}>
         <div className={styles.projectSidebar}>
-          {/*  <div className={styles.projectImage}>
-            <ImageWrapper
-              image={{
-                url: url,
-                alt: project.title || 'Project image',
-              }}
-              width={80}
-              height={80}
-            />
-          </div> */}
           <Label label="Project" text={project.title} />
           <Label label="Status" text={project.subtitle} />
           <Label label="Role" text={project.role} />

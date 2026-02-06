@@ -1,7 +1,21 @@
 .navigationMenuButton {
     display: none;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    min-width: auto;
+    color: var(--light-background);
+    cursor: pointer;
 
     @media (max-width: 768px) {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+}
+
+.navigationMenuButton:hover {
+    background: none;
+    border: none;
+    color: var(--primary-accent);
 }

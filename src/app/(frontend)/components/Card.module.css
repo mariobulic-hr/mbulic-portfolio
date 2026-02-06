@@ -7,6 +7,7 @@
     text-decoration: none;
     display: flex;
     flex-direction: column;
+    will-change: transform;
 }
 
 .projectCard:hover {
@@ -23,6 +24,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s;
+    will-change: transform;
 }
 
 .projectCard:hover .projectImage img {
@@ -76,7 +78,7 @@
 }
 
 .projectLink::after {
-    content: '→';
+    content: '\2192';
     position: absolute;
     right: 0;
     transition: transform 0.3s ease;
@@ -84,4 +86,21 @@
 
 .projectCard:hover .projectLink::after {
     transform: translateX(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .projectCard,
+    .projectImage img,
+    .projectLink::after {
+        transition: none;
+    }
+    .projectCard:hover {
+        transform: none;
+    }
+    .projectCard:hover .projectImage img {
+        transform: none;
+    }
+    .projectCard:hover .projectLink::after {
+        transform: none;
+    }
 }

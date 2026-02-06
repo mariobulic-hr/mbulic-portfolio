@@ -48,7 +48,6 @@
   --font-mona-sans: 'Mona Sans', sans-serif;
   --border-radius: 0;
   --nav-height: 100px;
-  --tech-tag-height: 120px;
 }
 
 
@@ -59,7 +58,7 @@
 
 html {
   font-size: 18px;
-  line-height: 32px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -137,6 +136,45 @@ h6 {
   margin-bottom: 1rem;
 }
 
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+  h4 {
+    font-size: 1.1rem;
+  }
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -154,7 +192,6 @@ h6 {
 }
 
 .page-container h1 {
-  font-size: 2rem;
   margin-bottom: 4rem;
   text-align: center;
 }
@@ -188,10 +225,32 @@ h6 {
   border: 3px solid var(--dark-accent);
   border-top-color: var(--primary-accent);
   border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-text {
   color: var(--light-background);
   font-size: 1.2rem;
   font-weight: 500;
+  animation: fade 2s ease-in-out infinite;
+}
+
+@keyframes fade {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+  }
+  .loading-text {
+    animation: none;
+  }
 }

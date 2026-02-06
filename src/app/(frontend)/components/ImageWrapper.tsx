@@ -9,5 +9,5 @@ export default function ImageWrapper({
   width: number
   height: number
 }) {
-  return <Image src={image.url} alt={image.alt} width={width} height={height} unoptimized />
+  return <Image src={image.url} alt={image.alt} width={width} height={height} />
 }

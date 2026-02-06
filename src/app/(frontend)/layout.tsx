@@ -14,13 +14,39 @@ const monaSans = Mona_Sans({
   variable: '--font-mona-sans',
 })
 
+const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://mariobulic.com'
+
 export const metadata: Metadata = {
-  title: 'Mario Bulic',
-  description: 'Mario Bulic - Software Developer',
+  title: {
+    default: 'Mario Bulic - Software Developer',
+    template: '%s | Mario Bulic',
+  },
+  description:
+    'Experienced software developer specializing in React, Next.js, and full-stack web development. Building modern, performant web applications.',
   icons: {
     icon: '/favicon.ico',
   },
   manifest: '/site.webmanifest',
+  metadataBase: new URL(baseUrl),
+  openGraph: {
+    title: 'Mario Bulic - Software Developer',
+    description:
+      'Experienced software developer specializing in React, Next.js, and full-stack web development.',
+    url: baseUrl,
+    siteName: 'Mario Bulic',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Mario Bulic - Software Developer',
+    description:
+      'Experienced software developer specializing in React, Next.js, and full-stack web development.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function FrontendLayout({ children }: { children: React.ReactNode }) {
@@ -29,11 +55,11 @@ export default function FrontendLayout({ children }: { children: React.ReactNode
       <body suppressHydrationWarning>
         <PostHogProvider>
           <MobileMenuProvider>
-            <PageTransition>
-              <Navigation />
-              <main className="wrapper">{children}</main>
-              <Footer />
-            </PageTransition>
+            <Navigation />
+            <main className="wrapper">
+              <PageTransition>{children}</PageTransition>
+            </main>
+            <Footer />
           </MobileMenuProvider>
         </PostHogProvider>
       </body>

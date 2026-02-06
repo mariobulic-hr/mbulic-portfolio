@@ -1,7 +1,6 @@
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 import HeroSection from './components/HeroSection'
-import TechTags from './components/TechTags'
 import ScrollArrow from './components/ScrollArrow'
 import { Projects } from './components/Projects'
 
@@ -34,7 +33,6 @@ export default async function Home() {
   return (
     <>
       <HeroSection homepageData={homepageData} />
-      <TechTags techTags={homepageData.techStack} />
       <ScrollArrow />
       <Projects isHomePage={true} />
     </>
