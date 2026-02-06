@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import MobileButton from './MobileButton'
 import DesktopNavigation from './DesktopNavigation'
 import MobileNavigation from './MobileNavigation'
@@ -10,7 +9,8 @@ const Navigation = () => {
     <nav className={`${styles.navigation} container`}>
       <div className={styles.navigationTitle}>
         <Link href="/">
-          <Image src={`/images/mbulic.svg`} alt="Mario Bulic" width={70} height={70} priority />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/mbulic.svg" alt="Mario Bulic" width={70} height={70} />
         </Link>
       </div>
       <DesktopNavigation />

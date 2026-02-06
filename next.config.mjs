@@ -22,8 +22,6 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-    dangerouslyAllowSVG: true,
-    contentDispositionType: 'inline',
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
   },
