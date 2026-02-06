@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { revalidateHomepage } from '@/hooks/revalidateGlobal'
 
 export const HomepageGlobal: GlobalConfig = {
   slug: 'homepage',
@@ -7,6 +8,9 @@ export const HomepageGlobal: GlobalConfig = {
   },
   admin: {
     group: 'Content',
+  },
+  hooks: {
+    afterChange: [revalidateHomepage],
   },
   fields: [
     {

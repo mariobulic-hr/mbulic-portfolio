@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidateCollection'
 
 export const Stories: CollectionConfig = {
   slug: 'stories',
@@ -8,6 +9,10 @@ export const Stories: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange('/stories')],
+    afterDelete: [revalidateAfterDelete('/stories')],
   },
   fields: [
     {
