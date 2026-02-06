@@ -23,7 +23,7 @@ const nextConfig = {
       },
     ],
     dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
+    contentDispositionType: 'inline',
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
   },
