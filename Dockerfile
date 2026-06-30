@@ -24,8 +24,6 @@ FROM node:20-alpine AS runner
 
 RUN apk add --no-cache vips
 
-RUN corepack enable && corepack prepare pnpm@10 --activate
-
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs && \
@@ -38,6 +36,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 
 USER nextjs
 
+ENV NODE_ENV=production
+ENV NODE_OPTIONS=--no-deprecation
+
 EXPOSE 3000
 
-CMD ["pnpm", "start"]
+# Run the Next.js binary directly — no pnpm/corepack at runtime
+CMD ["node_modules/.bin/next", "start"]
